@@ -1,18 +1,16 @@
 import { getLocalStorage } from "./utils.mjs";
 
-
-
 function renderCartContents() {
   //Chuck Mikolyski
   //loop to display more than one item.
-  for ( let i = 0; i < localStorage.length; i++) {
-  const cartItems = [getLocalStorage(localStorage.key(i))];
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML += htmlItems.join("");
-}
+  for (let i = 0; i < localStorage.length; i++) {
+    const cartItems = [getLocalStorage(localStorage.key(i))];
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML += htmlItems.join("");
+  }
 
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
+  function cartItemTemplate(item) {
+    const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -27,7 +25,7 @@ function cartItemTemplate(item) {
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
-  return newItem;
-}
+    return newItem;
+  }
 }
 renderCartContents();

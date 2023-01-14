@@ -7,7 +7,7 @@ function renderCartContents() {
 
   // Flatten 4 levels (why 4 well why not 4)
   items = items.flat(4);
-  const objArr = items.map(x => JSON.parse(x));
+  const objArr = items.map((x) => JSON.parse(x));
   let dist = [];
   // Loop through items to mark duplicates as additional value in qty
   for (let i in objArr) {
@@ -24,7 +24,7 @@ function renderCartContents() {
     let first = true;
     for (let x in dist) {
       if (dist[x]["Id"] == objArr[i]["Id"]) {
-        first = false
+        first = false;
       }
     }
 
@@ -37,7 +37,7 @@ function renderCartContents() {
   }
 
   // Convert all object back to string
-  const all = dist.map(x => JSON.stringify(x));
+  const all = dist.map((x) => JSON.stringify(x));
 
   // Generate HTML from template for each item
   const htmlItems = all.map((i) => cartItemTemplate(i));

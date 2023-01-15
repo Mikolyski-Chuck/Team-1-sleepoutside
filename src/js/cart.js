@@ -3,11 +3,19 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   // Get cart items
   const cartItems = [getLocalStorage("so-cart")];
-  let items = cartItems[0];
+  let objArr = new Array;
 
-  // Flatten 4 levels (why 4 well why not 4)
-  items = items.flat(4);
-  const objArr = items.map((x) => JSON.parse(x));
+  // Flatten levels because sometimes they nest
+  if (cartItems[0] != null) {
+    let items = cartItems[0].flat(10);
+    objArr = items.map((x) => JSON.parse(x));
+  }
+
+  // Deal with possible null entry
+  if (objArr[0] == null) {
+    objArr.shift();
+  }
+
   let dist = [];
   // Loop through items to mark duplicates as additional value in qty
   for (let i in objArr) {

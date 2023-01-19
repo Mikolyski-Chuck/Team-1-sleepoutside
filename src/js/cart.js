@@ -3,7 +3,7 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   // Get cart items
   const cartItems = [getLocalStorage("so-cart")];
-  let objArr = new Array;
+  let objArr = new Array();
 
   // Flatten levels because sometimes they nest
   if (cartItems[0] != null) {

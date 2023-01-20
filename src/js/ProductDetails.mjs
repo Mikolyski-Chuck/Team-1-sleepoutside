@@ -13,6 +13,8 @@ function convertToJson(res) {
 function createPage(item) {
   let color = item["Colors"];
   let brand = item["Brand"].Name;
+  let pricedata = buildPrice(item);
+
   const htmlItem = `
     <h3>${brand}</h3>
 
@@ -20,8 +22,7 @@ function createPage(item) {
 
     <img class="divider" src="${item["Image"]}" alt="${item["Name"]}" />
 
-
-            <p class="product-card__price">$${item["FinalPrice"]}</p>
+            ${pricedata}
 
             <p class="product__color">${color[0].ColorName}</p>
 
@@ -35,6 +36,18 @@ function createPage(item) {
     return htmlItem;
 }
 
+function buildPrice(item){
+  if (item["SuggestedRetailPrice"] == item["FinalPrice"]) {
+    let buildPrice = `<p class="product-card__price">$${item["FinalPrice"]}</p>`;
+    return buildPrice
+  } else {
+    let discount = (item["SuggestedRetailPrice"] - item["FinalPrice"]).toFixed(2)
+    let buildPrice = `<p class="product__suggestedprice">$<del>${item["SuggestedRetailPrice"]}</del></p>
+                      <p class="product__discount"><ins>$${discount} off!</ins></p>
+                      <p class="product-card__price">$${item["FinalPrice"]}</p>`;
+    return buildPrice
+  }
+}
 
 export default class ProductDetails {
   constructor(category) {
@@ -81,6 +94,7 @@ export default class ProductDetails {
     setLocalStorage("so-cart", cart);
     setCartSub();
   }
+
   async init(){
     let id = await getItemFromUrl();
     let htmlText = await this.getPage(id);

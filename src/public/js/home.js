@@ -50,4 +50,3 @@ function itemTemplate(item) {
 }
 
 renderIndex();
-

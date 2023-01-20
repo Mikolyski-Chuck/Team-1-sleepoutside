@@ -46,19 +46,18 @@ function renderCartContents() {
   const all = dist.map((x) => JSON.stringify(x));
 
   // Generate HTML from template for each item
-  const htmlItems = all.map((i) => cartItemTemplate(i));
+  const htmlItems = all.map((o) => cartItemTemplate(o));
   let total = 0;
   for (let x in all) {
     let item = JSON.parse(all[x]);
-    total += (Number(item["FinalPrice"]) * Number(item["qty"]));
+    total += Number(item["FinalPrice"]) * Number(item["qty"]);
   }
 
   // Hide no items in cart
   let carttotal = ``;
   if (dist.length > 0) {
     carttotal = `<p class="cart-total">Total: $${total}</p>`;
-  }
-  else {
+  } else {
     carttotal = `<p class="cart-total" hidden>Total: $${total}</p>`;
   }
 
@@ -66,9 +65,9 @@ function renderCartContents() {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   document.querySelector(".cart-footer").innerHTML = carttotal;
 
-  var items = document.getElementsByClassName('remove-item');
+  var items = document.getElementsByClassName("remove-item");
   for (var i = 0; i < items.length; i++) {
-    items[i].addEventListener('click', removeItemHandler);
+    items[i].addEventListener("click", removeItemHandler);
   }
 }
 
@@ -109,7 +108,7 @@ function removeItemFromCart(id) {
 
   // Convert all object back to string
   const all = dist.map((x) => JSON.stringify(x));
-  let filteredArray = new Array;
+  let filteredArray = new Array();
   for (let a in all) {
     let item = JSON.parse(all[a]);
     let itemId = item["Id"];

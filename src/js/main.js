@@ -51,4 +51,5 @@ function itemTemplate(item) {
 }
 
 renderIndex();
+
 window.addEventListener("load", setCartSub);

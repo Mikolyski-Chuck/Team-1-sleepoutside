@@ -3,14 +3,15 @@ import { getLocalStorage } from "./utils.mjs";
 
 
 export function setCartSub() {
-
+    
     const cartItems = [getLocalStorage("so-cart")];
     const cartTotalSub = document.getElementById("cartTotalSub");
-
+    
     if (cartItems[0] == null) {
         cartTotalSub.style.display = "hide";
     }
-
+    
+    
 
     else {
         let cartQuantity = 0;
@@ -21,3 +22,4 @@ export function setCartSub() {
       cartTotalSub.style.display = "unhide";
     }
 }
+

@@ -109,7 +109,6 @@ button {
 .cart:hover svg {
   fill: gray;
 }
-
 .cart:hover div {
   background-color: gray;
   color: white;
@@ -125,7 +124,6 @@ button {
   position: absolute;
   top: 10%;
   right: 0;
-}
 
 /* End cart icon styles */
 

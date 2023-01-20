@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build --emptyOutDir && npm run moveassets",
-    "moveassets": "copyfiles -u1 src/json/*.* src/images/*.* src/product_pages/*.* src/images/**/*.* dist",
+    "moveassets": "copyfiles -u1 src/json/*.* src/images/*.* src/product_pages/*.* src/js/*.* src/images/**/*.* dist",
     "lint": "eslint *.js src/**/*.js",
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css}\"",
     "test": "jest"

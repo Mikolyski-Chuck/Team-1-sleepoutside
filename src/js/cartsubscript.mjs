@@ -12,6 +12,7 @@ export function setCartSub() {
     }
     
     
+
     else {
         let cartQuantity = 0;
        for (let i = 0; i < cartItems[0].length; i++) {
@@ -21,3 +22,4 @@ export function setCartSub() {
       cartTotalSub.style.display = "unhide";
     }
 }
+

@@ -122,6 +122,22 @@ button {
   fill: gray;
 }
 
+.cart:hover div {
+  background-color: gray;
+  color: white;
+}
+
+.cart div {
+  font-size: 75%;
+  width: 80%;
+  background-color: orange;
+  text-align: center;
+  color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 10%;
+  right: 0;
+}
 /* End cart icon styles */
 
 .mission {

@@ -186,6 +186,10 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+.product__discount {
+  color: green;
+}
 /* End product list card */
 
 .product-detail {

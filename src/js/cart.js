@@ -3,7 +3,7 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   // Get cart items
   const cartItems = [getLocalStorage("so-cart")];
-  let objArr = new Array;
+  let objArr = new Array();
 
   // Flatten levels because sometimes they nest
   if (cartItems[0] != null) {
@@ -64,14 +64,14 @@ function cartItemTemplate(item) {
   let qty = obj["qty"];
   // Create html code
   const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
+  <a href="../product_pages/index.html?id=${obj["Id"]}" class="cart-card__image">
     <img
       src="${img}"
       alt="${name}"
     />
   </a>
   <div class="product-detail">
-    <a href="#">
+    <a href="../product_pages/index.html?id=${obj["Id"]}">
       <h2 class="card__name">${name}</h2>
     </a>
     <p class="cart-card__color">${color[0].ColorName}</p>

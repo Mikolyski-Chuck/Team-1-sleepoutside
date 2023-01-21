@@ -1,8 +1,9 @@
+//Start Chuck Mikolyski
 import { getLocalStorage } from "./utils.mjs";
 
-export function setCartSub() {
+export default function setCartSup() {
   const cartItems = [getLocalStorage("so-cart")];
-  const cartTotalSub = document.getElementById("cartTotalSub");
+  const cartTotalSub = document.getElementById("cartTotalSup");
 
   if (cartItems[0] == null) {
     cartTotalSub.style.display = "hide";
@@ -15,4 +16,5 @@ export function setCartSub() {
     cartTotalSub.style.display = "unhide";
   }
 }
-window.addEventListener("load", setCartSub);
+window.addEventListener("load", setCartSup);
+//End Chuck Mikolyski

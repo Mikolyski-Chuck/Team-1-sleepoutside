@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage, getItemFromUrl} from "./utils.mjs";
-import { setCartSub } from "./cartsubscript.mjs";
+import { setCartSub } from "./cartsubscript.js";
 import ProductData from "./ProductData.mjs";
 const dataSource = new ProductData("tents");
 

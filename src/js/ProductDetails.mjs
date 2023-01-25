@@ -66,23 +66,6 @@ export default class ProductDetails {
   }
 
   async addProductToCart(product) {
-    // Get cart from storage
-    //let cart = [getLocalStorage("so-cart")];
-    
-  /*
-    // Deal with possible null entry
-    if (objArr[0] == null) {
-      objArr.shift();
-    }
-    // Check if first product
-    if (cart.length == 1 && cart[0] == null) {
-      // If first set product in array
-      cart = [JSON.stringify(product)];
-    } else {
-      // If not the first product push string of product
-      cart.push(JSON.stringify(product));
-    }
-    */
   
     // Parse current cart items if any and add to objArr
     const cartItems = [getLocalStorage("so-cart")];

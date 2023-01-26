@@ -37,7 +37,6 @@ function getCartItemsFromStorage() {
 
   return dist;
 }
-
 function renderCartContents() {
   // Get Items
   let dist = getCartItemsFromStorage();
@@ -125,4 +124,6 @@ function removeItemHandler(e) {
   removeItemFromCart(id);
 }
 
-renderCartContents();
+if (getLocalStorage("so-cart") != null) {
+  renderCartContents();
+}

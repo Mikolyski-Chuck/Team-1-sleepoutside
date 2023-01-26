@@ -1,6 +1,6 @@
 //Start Chuck Mikolyski
 export default function cartAnimation() {
-  const cartIcon = document.getElementById("cartAnimation");
+  
 
   let keyFrames = [
     { transform: "rotate(30deg)", easing: "ease-in" },
@@ -12,6 +12,6 @@ export default function cartAnimation() {
 
   let options = { duration: 1500 };
 
-  cartIcon.animate(keyFrames, options);
+  document.getElementById("cartAnimation").animate(keyFrames, options);
 }
 //End Chuck Mikolyski

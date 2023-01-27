@@ -125,4 +125,6 @@ function removeItemHandler(e) {
   removeItemFromCart(id);
 }
 
-renderCartContents();
+if (getLocalStorage("so-cart") != null) {
+  renderCartContents();
+}

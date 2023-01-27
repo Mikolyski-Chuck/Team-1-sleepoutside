@@ -12,6 +12,9 @@ function convertToJson(res) {
 }
 
 function createPage(item) {
+  if (item == null) {
+    return "";
+  }
   let color = item["Colors"];
   let brand = item["Brand"].Name;
   let pricedata = buildPrice(item);

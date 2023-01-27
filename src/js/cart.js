@@ -94,9 +94,14 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${name}</h2>
     </a>
     <p class="cart-card__color">${color[0].ColorName}</p>
+    <div>
     <p class="cart-card__quantity">Qty: ${qty}</p>
+    
+    </div>
+    
     <p class="cart-card__price">$${finalPrice}</p>
   </div>
+  <button class="remove-item" data-id="${obj["Id"]}">X</button>
 </li>`;
 
   return newItem;

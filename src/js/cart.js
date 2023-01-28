@@ -113,20 +113,23 @@ function cartItemTemplate(item) {
 }
 
 function removeItemFromCart(id) {
-  // Get Items
-  let dist = getCartItemsFromStorage();
+  // Get Items from local storage
+  let dist = [getLocalStorage("so-cart")];
 
-  // Convert all object back to string
-  const all = dist.map((x) => JSON.stringify(x));
-  let filteredArray = new Array();
-  for (let a in all) {
-    let item = JSON.parse(all[a]);
-    let itemId = item["Id"];
-    if (itemId != id) {
-      filteredArray.push(JSON.stringify(item));
+  // Loop through items and remove items
+  // that match passed id
+  for (let i = 0; i < dist[0].length; i++) {
+    let arrEle = JSON.parse(dist[0][i]);
+
+    // Check if array element if matches
+    if (arrEle.Id == id) {
+      dist[0].splice(i, 1);
+      i--;
     }
   }
-  setLocalStorage("so-cart", filteredArray);
+
+  // Update local storage and reload cart
+  setLocalStorage("so-cart", dist[0]);
   renderCartContents();
 }
 

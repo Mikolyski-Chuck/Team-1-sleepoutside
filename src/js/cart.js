@@ -15,7 +15,9 @@ function getCartItemsFromStorage() {
     // Look for duplicate items in array
     for (let x in objArr) {
       if (objArr[i]["Name"] == objArr[x]["Name"]) {
-        count++;
+        let qty = objArr[i]["qty"];
+        if(qty == 0 || qty == null) qty = 1;
+        count += qty;
       }
     }
 
@@ -48,6 +50,7 @@ function renderCartContents() {
   // Generate HTML from template for each item
   const htmlItems = all.map((o) => cartItemTemplate(o));
   let total = 0;
+  
   for (let x in all) {
     let item = JSON.parse(all[x]);
     total += Number(item["FinalPrice"]) * Number(item["qty"]);
@@ -79,7 +82,8 @@ function cartItemTemplate(item) {
   let color = obj["Colors"];
   let price = obj["FinalPrice"];
   let qty = obj["qty"];
-  let finalPrice = Number(price) * Number(qty);
+  
+  let finalPrice = parseFloat(Number(price) * Number(qty)).toFixed(2);
 
   // Create html code
   const newItem = `<li class="cart-card divider">

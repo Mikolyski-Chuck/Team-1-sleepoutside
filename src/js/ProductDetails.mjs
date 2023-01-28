@@ -1,6 +1,6 @@
 import { getLocalStorage, setLocalStorage, getItemFromUrl} from "./utils.mjs";
-import { setCartSub } from "./cartsubscript.js";
 import ProductData from "./ProductData.mjs";
+import setCartSup from "./cartsuperscript.js";
 import cartAnimation from "./cartAnimation.js";
 const dataSource = new ProductData("tents");
 
@@ -13,6 +13,9 @@ function convertToJson(res) {
 }
 
 function createPage(item) {
+  if (item == null) {
+    return "";
+  }
   let color = item["Colors"];
   let brand = item["Brand"].Name;
   let pricedata = buildPrice(item);
@@ -80,23 +83,6 @@ export default class ProductDetails {
   }
 
   async addProductToCart(product) {
-    // Get cart from storage
-    //let cart = [getLocalStorage("so-cart")];
-    
-  /*
-    // Deal with possible null entry
-    if (objArr[0] == null) {
-      objArr.shift();
-    }
-    // Check if first product
-    if (cart.length == 1 && cart[0] == null) {
-      // If first set product in array
-      cart = [JSON.stringify(product)];
-    } else {
-      // If not the first product push string of product
-      cart.push(JSON.stringify(product));
-    }
-    */
   
     // Parse current cart items if any and add to objArr
     const cartItems = [getLocalStorage("so-cart")];
@@ -131,7 +117,7 @@ export default class ProductDetails {
     setLocalStorage("so-cart", newCart);
     
     //start Chuck Mikolyski
-    setCartSub();
+    setCartSup();
     cartAnimation();
     //End Chuck Mikolyski
   }

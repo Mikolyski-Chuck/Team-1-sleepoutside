@@ -15,7 +15,9 @@ function getCartItemsFromStorage() {
     // Look for duplicate items in array
     for (let x in objArr) {
       if (objArr[i]["Name"] == objArr[x]["Name"]) {
-        count++;
+        let qty = objArr[i]["qty"];
+        if (qty == 0 || qty == null) qty = 1;
+        count += qty;
       }
     }
 
@@ -48,10 +50,12 @@ function renderCartContents() {
   // Generate HTML from template for each item
   const htmlItems = all.map((o) => cartItemTemplate(o));
   let total = 0;
+
   for (let x in all) {
     let item = JSON.parse(all[x]);
     total += Number(item["FinalPrice"]) * Number(item["qty"]);
   }
+  total = parseFloat(total).toFixed(2);
 
   // Hide no items in cart
   let carttotal = ``;
@@ -79,7 +83,8 @@ function cartItemTemplate(item) {
   let color = obj["Colors"];
   let price = obj["FinalPrice"];
   let qty = obj["qty"];
-  let finalPrice = Number(price) * Number(qty);
+
+  let finalPrice = parseFloat(Number(price) * Number(qty)).toFixed(2);
 
   // Create html code
   const newItem = `<li class="cart-card divider">
@@ -94,29 +99,37 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${name}</h2>
     </a>
     <p class="cart-card__color">${color[0].ColorName}</p>
+    <div>
     <p class="cart-card__quantity">Qty: ${qty}</p>
+    
+    </div>
+    
     <p class="cart-card__price">$${finalPrice}</p>
   </div>
+  <button class="remove-item" data-id="${obj["Id"]}">X</button>
 </li>`;
 
   return newItem;
 }
 
 function removeItemFromCart(id) {
-  // Get Items
-  let dist = getCartItemsFromStorage();
+  // Get Items from local storage
+  let dist = [getLocalStorage("so-cart")];
 
-  // Convert all object back to string
-  const all = dist.map((x) => JSON.stringify(x));
-  let filteredArray = new Array();
-  for (let a in all) {
-    let item = JSON.parse(all[a]);
-    let itemId = item["Id"];
-    if (itemId != id) {
-      filteredArray.push(JSON.stringify(item));
+  // Loop through items and remove items
+  // that match passed id
+  for (let i = 0; i < dist[0].length; i++) {
+    let arrEle = JSON.parse(dist[0][i]);
+
+    // Check if array element if matches
+    if (arrEle.Id == id) {
+      dist[0].splice(i, 1);
+      i--;
     }
   }
-  setLocalStorage("so-cart", filteredArray);
+
+  // Update local storage and reload cart
+  setLocalStorage("so-cart", dist[0]);
   renderCartContents();
 }
 

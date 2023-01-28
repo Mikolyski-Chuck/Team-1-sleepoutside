@@ -55,6 +55,7 @@ function renderCartContents() {
     let item = JSON.parse(all[x]);
     total += Number(item["FinalPrice"]) * Number(item["qty"]);
   }
+  total = parseFloat(total).toFixed(2);
 
   // Hide no items in cart
   let carttotal = ``;

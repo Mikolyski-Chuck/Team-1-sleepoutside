@@ -36,3 +36,16 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   }
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 }
+
+export function buildPrice(item){
+  if (item["SuggestedRetailPrice"] == item["FinalPrice"]) {
+    let buildPrice = `<p class="product-card__price">$${item["FinalPrice"]}</p>`;
+    return buildPrice
+  } else {
+    let discount = (item["SuggestedRetailPrice"] - item["FinalPrice"]).toFixed(2)
+    let buildPrice = `<p class="product__suggestedprice">$<del>${item["SuggestedRetailPrice"]}</del></p>
+                      <p class="product__discount"><ins>$${discount} off!</ins></p>
+                      <p class="product-card__price">$${item["FinalPrice"]}</p>`;
+    return buildPrice
+  }
+}

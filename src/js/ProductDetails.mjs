@@ -1,6 +1,7 @@
 import { getLocalStorage, setLocalStorage, getItemFromUrl, buildPrice} from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import setCartSup from "./cartsuperscript.js";
+import cartAnimation from "./cartAnimation.js";
 const dataSource = new ProductData("tents");
 
 function convertToJson(res) {
@@ -104,6 +105,7 @@ export default class ProductDetails {
     
     //start Chuck Mikolyski
     setCartSup();
+    cartAnimation();
     //End Chuck Mikolyski
   }
 

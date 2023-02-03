@@ -121,7 +121,7 @@ button {
 .cart:hover svg {
   fill: gray;
 }
-
+/* Start Chuck Mikolyski */
 .cart:hover div {
   background-color: gray;
   color: white;
@@ -138,6 +138,7 @@ button {
   top: 10%;
   right: 0;
 }
+/*End Chuck Mikolyski */
 /* End cart icon styles */
 
 .mission {

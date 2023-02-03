@@ -39,7 +39,6 @@ import shoppingCart from "./shoppingcart.mjs";
 
   return dist;
 }
-
 function renderCartContents() {
   // Get Items
   let dist = getCartItemsFromStorage();

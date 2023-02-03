@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
-
+import setCartSup from "./cartsuperscript";
 
 
 function getCartItemsFromStorage(key) {
@@ -79,7 +79,11 @@ function getCartItemsFromStorage(key) {
     return newItem;
   }
   
-  
+  function removeItemHandler(e) {
+    let id = e.target.dataset.id;
+    const shop = new shoppingCart("so-cart", ".product-list");
+    shop.removeItemFromCart(id);
+  }
   
   //if (getLocalStorage("so-cart") != null) {
    // renderCartContents();
@@ -87,14 +91,13 @@ function getCartItemsFromStorage(key) {
 
   export default class shoppingCart {
     constructor(key, listElement) {
-      
       this.key = key;
       this.listElement = listElement;
     }
     
-    removeItemFromCart(id, key) {
+    removeItemFromCart(id) {
         // Get Items from local storage
-        let dist = [getLocalStorage("so-cart")];
+        let dist = [getLocalStorage(this.key)];
       
         // Loop through items and remove items
         // that match passed id
@@ -109,16 +112,11 @@ function getCartItemsFromStorage(key) {
         }
       
         // Update local storage and reload cart
-        setLocalStorage(key, dist[0]);
-        renderCartContents();
+        setLocalStorage(this.key, dist[0]);
+        this.renderCartContents();
+        setCartSup();
       }
       
-    
-      removeItemHandler(e) {
-        let id = e.target.dataset.id;
-        removeItemFromCart(id, this.key);
-      }
-    
       renderCartContents() {
         // Get Items
         let dist = getCartItemsFromStorage(this.key);
@@ -150,7 +148,7 @@ function getCartItemsFromStorage(key) {
       
         var items = document.getElementsByClassName("remove-item");
         for (var i = 0; i < items.length; i++) {
-          items[i].addEventListener("click", this.removeItemHandler);
+          items[i].addEventListener("click", removeItemHandler);
         }
       }
 

@@ -16,5 +16,5 @@ export default function setCartSup() {
     cartTotalSup.style.display = "unhide";
   }
 }
-window.addEventListener("load", setCartSup);
+
 //End Chuck Mikolyski

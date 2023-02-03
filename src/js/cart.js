@@ -1,6 +1,6 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-
-function getCartItemsFromStorage() {
+import { loadHeaderFooter } from "./utils.mjs";
+import shoppingCart from "./shoppingcart.mjs";
+/*function getCartItemsFromStorage() {
   let dist = [];
   const cartItems = [getLocalStorage("so-cart")];
   let items = cartItems[0];
@@ -140,4 +140,7 @@ function removeItemHandler(e) {
 
 if (getLocalStorage("so-cart") != null) {
   renderCartContents();
-}
+} */
+loadHeaderFooter();
+const shopCart = new shoppingCart("so-cart", ".product-list");
+shopCart.renderCartContents();

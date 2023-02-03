@@ -1,3 +1,5 @@
+import setCartSup from "./cartsuperscript";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -35,6 +37,29 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     parentElement.innerHTML = "";
   }
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+}
+
+export function renderWithTemplate(templateFn, parentElement, data, callback) {
+  parentElement.insertAdjacentHTML("afterbegin", templateFn);
+  if (callback) {
+    callback(data);
+  }
+}
+
+async function loadTemplate(path) {
+    const response = await fetch(path);
+    const template = response.text();
+    return template;
+}
+
+export async function loadHeaderFooter(){
+  const header = await loadTemplate("../partials/header.html");
+  const footer = await loadTemplate("../partials/footer.html");
+  const headerEle = document.querySelector("#main-header");
+  const footerEle = document.querySelector("#main-footer");
+
+  renderWithTemplate(header, headerEle, "", setCartSup);
+  renderWithTemplate(footer, footerEle);
 }
 
 export function buildPrice(item){

@@ -167,7 +167,7 @@ button {
 }
 /* Styles for product lists */
 .product-card {
-  flex: 1 1 45%;
+  flex: 1 1 5vw;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
@@ -196,6 +196,7 @@ button {
 .product-detail {
   padding: 1em;
   max-width: 500px;
+  width: 40vw;
   margin: auto;
 }
 
@@ -208,7 +209,6 @@ button {
   display: grid;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
-  /* max-height: 120px; */
   align-items: center;
 }
 

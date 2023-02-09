@@ -274,3 +274,11 @@ footer {
 .remove-item:hover {
   color: crimson;
 }
+
+/* Start Chuck Mikolyski
+/* Start autocomplete search styles */
+
+#searchCont {
+  display: block;
+  background-color: red;
+}

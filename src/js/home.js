@@ -1,6 +1,9 @@
 import ProductData from "./ProductData.mjs";
+import Alert from "./alert.js"; 
 
 const dataSource = new ProductData("tents");
+const alert = new Alert();
+alert.displayAlert("alert-container");
 
 async function renderIndex() {
   // Get all tent data

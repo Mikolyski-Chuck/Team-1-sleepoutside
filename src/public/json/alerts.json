@@ -1,17 +1,9 @@
 [
     {
-      "message": "This is a message",
+      "message": "Our goal is to always provide you with cosmetic products that correspond to the highest quality standards.",
       "color": "white",
-      "background": "green"
-    },
-    {
-      "message": "This is a second message",
-      "color": "white",
-      "background": "yellow"
-    },
-    {
-      "message": "This is a third message",
-      "color": "black",
-      "background": "red"
+      "background": "#a3c2c2",
+      "text-align": "center"
+
     }
   ]

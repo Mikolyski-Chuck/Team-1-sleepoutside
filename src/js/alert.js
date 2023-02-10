@@ -22,7 +22,7 @@ export default class Alert{
                 paragraph.style.color = alert.color;
                 section.append(paragraph);
               });
-              alertsContainer.append("section"); 
+              alertsContainer.append(section); 
         }
     }
 }

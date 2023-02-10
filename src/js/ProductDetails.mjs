@@ -25,7 +25,7 @@ function createPage(item) {
 
     <h2 class="divider">${item["Name"]}</h2>
 
-    <img class="divider" src="${item["Image"]}" alt="${item["Name"]}" />
+    <img class="divider" src="${item["Images"].PrimaryLarge}" alt="${item["Name"]}" />
 
             ${pricedata}
 
@@ -42,9 +42,28 @@ function createPage(item) {
 }
 
 export default class ProductDetails {
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
+  }
+
+  async init(){
+    
+    this.product = await this.dataSource.findProductById(this.productId);
+    //let htmlText = await this.getPage(id);
+    
+    this.renderProductDetails("main");
+    //document.querySelector("#product-display").innerHTML = htmlText;
+    document.getElementById("addToCart").addEventListener("click", this.addToCartHandler.bind(this));
+  }
+  
+  renderProductDetails(selector) {
+    const element = document.querySelector(selector);
+    element.insertAdjacentHTML(
+      "afterBegin",
+      createPage(this.product)
+    );
   }
 
   getData() {
@@ -53,10 +72,6 @@ export default class ProductDetails {
       .then((data) => data);
   }
 
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
-  }
 
   async getPage(id) {
     const product = await this.findProductById(id);
@@ -109,10 +124,5 @@ export default class ProductDetails {
     //End Chuck Mikolyski
   }
 
-  async init(){
-    let id = await getItemFromUrl();
-    let htmlText = await this.getPage(id);
-    document.querySelector("#product-display").innerHTML = htmlText;
-    document.getElementById("addToCart").addEventListener("click", this.addToCartHandler.bind(this));
-  }
+  
 }

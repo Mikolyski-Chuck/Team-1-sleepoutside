@@ -4,7 +4,7 @@ import { loadHeaderFooter } from "./utils.mjs";
 
 function productCardTemplate(product) {
     return `<li class="product-card">
-    <a href="../product_pages/index.html?id=${product.Id}">
+    <a href="/product_pages/index.html?id=${product.Id}">
     <img
       src="${product.Images.PrimaryMedium}"
       alt="Image of ${product.Name} "

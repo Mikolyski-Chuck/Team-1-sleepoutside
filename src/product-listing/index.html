@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="../js/product-listing.js" type="module"></script>
+    <script type="module">import { initList } from "../js/product-listing.js";
+      window.initList = initList;
+    </script>
   </head>
   <body>
     <header class="divider" id="main-header"></header>
     <main class="divider">
       <section class="products">
         <h2>Top Products: <span class="title"></span></h2>
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort" onchange="initList()">
+          <option value="name">Name</option>
+          <option value="price">Price</option>
+        </select>
         <ul class="product-list"></ul>
       </section>
     </main>

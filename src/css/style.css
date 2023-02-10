@@ -234,6 +234,7 @@ button {
 .cart-card__quantity {
   grid-row: 1;
   grid-column: 3;
+  margin: 0;
 }
 
 .cart-card__price {
@@ -241,6 +242,29 @@ button {
   grid-column: 3;
 }
 
+.add-one {
+  text-align: center;
+  position: relative;
+  left: 2%;
+  padding: 0.3em 0.5em;
+  margin: 0;
+}
+
+.add-one:hover {
+  color: crimson;
+}
+
+.sub-one {
+  text-align: center;
+  padding: 0.3em 0.62em;
+  position: relative;
+  left: 2%;
+  margin: 0;
+}
+
+.sub-one:hover {
+  color: crimson;
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

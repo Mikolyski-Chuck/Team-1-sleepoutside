@@ -275,10 +275,23 @@ footer {
   color: crimson;
 }
 
-/* Start Chuck Mikolyski
-/* Start autocomplete search styles */
+.productGrid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+}
 
-#searchCont {
-  display: block;
-  background-color: red;
+.gridItem a {
+  text-decoration: none;
+}
+
+.gridItem {
+  flex: 1 1 5vw;
+  margin: 0.25em;
+  padding: 0.5em;
+  border: 1px solid var(--light-grey);
+  max-width: 250px;
+  text-align: center;
 }

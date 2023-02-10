@@ -4,9 +4,9 @@ import { loadHeaderFooter } from "./utils.mjs";
 
 function productCardTemplate(product) {
     return `<li class="product-card">
-    <a href="product_pages/index.html?id=${product.Id}">
+    <a href="../product_pages/index.html?id=${product.Id}">
     <img
-      src="${product.Image}"
+      src="${product.Images.PrimaryMedium}"
       alt="Image of ${product.Name} "
     />
     <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -26,15 +26,17 @@ export default class ProductListing {
     
     async init() {
       // our dataSource will return a Promise...so we can use await to resolve it.
-      const list = await this.dataSource.getData();
+      const list = await this.dataSource.getData(this.category);
       // render the list
       await this.renderList(list);
+
+      document.querySelector(".title").innerHTML = this.category;
     }
 
 
     renderList(list) {
         
-        const listIds = ["880RR", "985RF", "985PR", "344YJ"]
+       const listIds = ["880RR", "985RF", "985PR", "344YJ"]
         const idArray = [];
         for (let i in list) {
             if (listIds.includes(list[i].Id)) {
@@ -42,9 +44,6 @@ export default class ProductListing {
             }
         
         }
-        
-        renderListWithTemplate(productCardTemplate, this.listElement, idArray);
-        
+        renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
-
 }

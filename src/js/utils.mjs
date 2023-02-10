@@ -1,5 +1,5 @@
 import setCartSup from "./cartsuperscript";
-import { submitForm } from "./product_search";
+
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -24,12 +24,12 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
-export function getItemFromUrl() {
+export function getItemFromUrl(parameters) {
   // Get Id from url query string
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get("id");
-  return id;
+  const product = urlParams.get(parameters);
+  return product;
 }
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
@@ -40,15 +40,13 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 }
 
-export function renderWithTemplate(templateFn, parentElement, data, callback, callback2) {
+export function renderWithTemplate(templateFn, parentElement, data, callback) {
   parentElement.insertAdjacentHTML("afterbegin", templateFn);
   if (callback) {
     callback(data);
   }
 
-  if (callback2) {
-    callback2(data);
-  }
+  
 }
 
 async function loadTemplate(path) {
@@ -63,7 +61,7 @@ export async function loadHeaderFooter(){
   const headerEle = document.querySelector("#main-header");
   const footerEle = document.querySelector("#main-footer");
 
-  renderWithTemplate(header, headerEle, "", setCartSup, submitForm);
+  renderWithTemplate(header, headerEle, "", setCartSup);
   renderWithTemplate(footer, footerEle);
 }
 

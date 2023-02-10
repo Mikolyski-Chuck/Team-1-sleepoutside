@@ -156,7 +156,7 @@ button {
 .product-list {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  align-content: space-between;
   list-style-type: none;
   padding: 0;
 }
@@ -167,7 +167,7 @@ button {
 }
 /* Styles for product lists */
 .product-card {
-  flex: 1 1 5vw;
+  flex: 1 1 25vw;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
@@ -200,8 +200,12 @@ button {
   margin: auto;
 }
 
-.product-detail img {
+.product-detail {
   width: 100%;
+}
+
+img.divider {
+  width: 30vw;
 }
 
 /* Start cart list card styles */
@@ -294,4 +298,8 @@ footer {
   border: 1px solid var(--light-grey);
   max-width: 250px;
   text-align: center;
+}
+
+.product-card img {
+  width: 100%;
 }

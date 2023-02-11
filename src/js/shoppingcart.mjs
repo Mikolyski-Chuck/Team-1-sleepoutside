@@ -1,6 +1,8 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
 import setCartSup from "./cartsuperscript";
-
+import cartAnimation from "./cartAnimation.js";
+import ProductData from "./ProductData.mjs";
+const tentSource = new ProductData("tents");
 
 function getCartItemsFromStorage(key) {
     let dist = [];
@@ -67,8 +69,9 @@ function getCartItemsFromStorage(key) {
       </a>
       <p class="cart-card__color">${color[0].ColorName}</p>
       <div>
+      <button class = "add-one" data-id="${obj["Id"]}"> + </button>
       <p class="cart-card__quantity">Qty: ${qty}</p>
-      
+      <button class = "sub-one" data-id="${obj["Id"]}"> - </button>
       </div>
       
       <p class="cart-card__price">$${finalPrice}</p>
@@ -79,15 +82,10 @@ function getCartItemsFromStorage(key) {
     return newItem;
   }
   
-  function removeItemHandler(e) {
-    let id = e.target.dataset.id;
-    const shop = new shoppingCart("so-cart", ".product-list");
-    shop.removeItemFromCart(id);
-  }
   
-  //if (getLocalStorage("so-cart") != null) {
-   // renderCartContents();
-  //}
+
+  
+  
 
   export default class shoppingCart {
     constructor(key, listElement) {
@@ -95,6 +93,21 @@ function getCartItemsFromStorage(key) {
       this.listElement = listElement;
     }
     
+     removeItemHandler(e) {
+      let id = e.target.dataset.id;
+      this.removeItemFromCart(id);
+    }
+  
+     removeQuantHandler(e) {
+      let id = e.target.dataset.id;
+      this.removeQuantFromCart(id);
+    }
+    
+    async  addQuantHandler(e) {
+      const product = await tentSource.findProductById(e.target.dataset.id);
+      this.addProductToCart(product);
+    }
+
     removeItemFromCart(id) {
         // Get Items from local storage
         let dist = [getLocalStorage(this.key)];
@@ -104,10 +117,75 @@ function getCartItemsFromStorage(key) {
         for (let i = 0; i < dist[0].length; i++) {
           let arrEle = JSON.parse(dist[0][i]);
       
-          // Check if array element if matches
+          // Check if array element matches
+          //If matches remove element.
           if (arrEle.Id == id) {
             dist[0].splice(i, 1);
             i--;
+          }
+        }
+      
+        // Update local storage and reload cart
+        setLocalStorage(this.key, dist[0]);
+        this.renderCartContents();
+        setCartSup();
+      }
+
+     addProductToCart(product) {
+        const cartItems = [getLocalStorage(this.key)];
+        let objArr = new Array;
+        let newCart = new Array;
+          
+        // Parse current cart items if any and add to objArr
+        if (cartItems[0] != null) {
+          let items = cartItems[0].flat(10);
+          objArr = items.map((x) => JSON.parse(x));
+        }
+          
+        // Deal with possible null entry
+        if (objArr[0] == null) {
+          objArr.shift();
+        }
+          
+        // Add old items if any and add new item
+        if (objArr.length > 0) {
+          for (let x in objArr) {
+            newCart.push(JSON.stringify(objArr[x]));
+          }
+          
+          newCart.push(JSON.stringify(product));
+          }
+          // If no old items set new item as first item
+          else {
+            newCart = [JSON.stringify(product)];
+          }
+            
+        // Set item in the local storage
+        setLocalStorage(this.key, newCart);
+            
+        //start Chuck Mikolyski
+        setCartSup();
+        this.renderCartContents();
+        cartAnimation();
+        //End Chuck Mikolyski
+        }
+
+
+      removeQuantFromCart(id) {
+        // Get Items from local storage
+        let dist = [getLocalStorage(this.key)];
+      
+        // Loop through items and remove items
+        // that match passed id
+        for (let i = 0; i < dist[0].length; i++) {
+          let arrEle = JSON.parse(dist[0][i]);
+      
+          // Check if array element matches
+          //If matches remove element.
+          if (arrEle.Id == id) {
+            dist[0].splice(i, 1);
+            i--;
+            break;
           }
         }
       
@@ -147,8 +225,12 @@ function getCartItemsFromStorage(key) {
         document.querySelector(".cart-footer").innerHTML = carttotal;
       
         var items = document.getElementsByClassName("remove-item");
+        let subOne = document.getElementsByClassName("sub-one");
+        let addOne = document.getElementsByClassName("add-one");
         for (var i = 0; i < items.length; i++) {
-          items[i].addEventListener("click", removeItemHandler);
+          items[i].addEventListener("click", this.removeItemHandler.bind(this));
+          subOne[i].addEventListener("click", this.removeQuantHandler.bind(this)); 
+          addOne[i].addEventListener("click", this.addQuantHandler.bind(this));
         }
       }
 

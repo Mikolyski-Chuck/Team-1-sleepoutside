@@ -1,4 +1,5 @@
 import setCartSup from "./cartsuperscript";
+import userSearch from "./search-box";
 
 
 // wrapper for querySelector...returns matching element
@@ -40,10 +41,14 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 }
 
-export function renderWithTemplate(templateFn, parentElement, data, callback) {
+export function renderWithTemplate(templateFn, parentElement, data, callback, callback2) {
   parentElement.insertAdjacentHTML("afterbegin", templateFn);
   if (callback) {
     callback(data);
+  }
+
+  if (callback2) {
+    callback2(data);
   }
 
   
@@ -61,7 +66,7 @@ export async function loadHeaderFooter(){
   const headerEle = document.querySelector("#main-header");
   const footerEle = document.querySelector("#main-footer");
 
-  renderWithTemplate(header, headerEle, "", setCartSup);
+  renderWithTemplate(header, headerEle, "", setCartSup, userSearch);
   renderWithTemplate(footer, footerEle);
 }
 

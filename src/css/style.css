@@ -319,3 +319,33 @@ footer {
   max-width: 250px;
   text-align: center;
 }
+
+#result {
+  position: absolute;
+  z-index: 999;
+}
+
+#result ul {
+  list-style-type: none;
+  font-size: 14px;
+  background-color: white;
+}
+
+#result ul li {
+  border: 2px solid black;
+  padding: 1em;
+}
+
+#result ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+#result ul li:hover {
+  background-color: green;
+}
+
+#result ul li a:hover {
+  text-decoration: none;
+  color: white;
+}

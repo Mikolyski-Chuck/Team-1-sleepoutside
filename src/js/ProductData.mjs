@@ -27,8 +27,8 @@ export default class ProductData {
     return data.Result;
   }
     async getAll() {
-    const response = await fetch(baseURL + "products/search/all");
-    const data = await convertToJson(response);
-    return data.Result;
+    const product = this.getData;
+    
+    return product;
   }
 }

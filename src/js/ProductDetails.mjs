@@ -41,6 +41,20 @@ function createPage(item) {
     return htmlItem;
 }
 
+function commentTemplate(item) {
+  if (item == null) {
+    return "";
+  }
+
+  const newItem = `<li class="comment-box-display">
+  <div class="">
+  <textarea class="comment-box-display" readonly>${item}</textarea>
+  </div>
+</li>`;
+
+  return newItem;
+}
+
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -49,15 +63,29 @@ export default class ProductDetails {
   }
 
   async init(){
-    
+    //this.reviews = await this.dataSource.getReviews(this.productId); 
+    this.reviews = getLocalStorage(this.productId);
     this.product = await this.dataSource.findProductById(this.productId);
     //let htmlText = await this.getPage(id);
     
     this.renderProductDetails("main");
+    this.renderProductComments("product-comments")
     //document.querySelector("#product-display").innerHTML = htmlText;
     document.getElementById("addToCart").addEventListener("click", this.addToCartHandler.bind(this));
+    document.getElementById("post-comment").addEventListener("click", this.postComment.bind(this));
   }
-  
+
+  renderProductComments(selector){
+    const element = document.getElementById(selector);
+    if(this.reviews == null)
+    {
+      return;
+    }
+    const comments = this.reviews.split(',');
+    const htmlItems = comments.map((o) => commentTemplate(o));
+    document.getElementById(selector).innerHTML = htmlItems.join("");
+  }
+
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     element.insertAdjacentHTML(
@@ -75,6 +103,7 @@ export default class ProductDetails {
 
   async getPage(id) {
     const product = await this.findProductById(id);
+    const reviews = await dataSource.getReviews(id);
     return createPage(product);
   }
 
@@ -82,6 +111,16 @@ export default class ProductDetails {
   async addToCartHandler(e) {
     const product = await dataSource.findProductById(e.target.dataset.id);
     await this.addProductToCart(product);
+  }
+  
+  async postComment(e) {
+    const form = document.forms[0];
+    let formData = new FormData(form);
+    let comment = formData.get("user-comments");
+    await this.addCommentToStorage(this.productId, comment);
+    this.reviews = getLocalStorage(this.productId);
+    this.renderProductComments("product-comments")
+    //document.getElementById("user-comments").value = "";
   }
 
   async addProductToCart(product) {
@@ -124,5 +163,20 @@ export default class ProductDetails {
     //End Chuck Mikolyski
   }
 
+  async addCommentToStorage(key, comment) {
+    const commentItems = [getLocalStorage(key)];
+    if(commentItems[0] != null)
+    {
+      commentItems.push(comment);
+      var stringContent = commentItems.join(',');
+    }
+    else
+    {
+      var stringContent = comment;
+    }
+    
+    // Set key in the local storage
+    setLocalStorage(key, stringContent);
+  }
   
 }

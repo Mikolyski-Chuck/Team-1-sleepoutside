@@ -1,5 +1,5 @@
 import setCartSup from "./cartsuperscript";
-import userSearch from "./search-box";
+import createSearchList from "./search-box";
 
 
 // wrapper for querySelector...returns matching element
@@ -66,7 +66,7 @@ export async function loadHeaderFooter(){
   const headerEle = document.querySelector("#main-header");
   const footerEle = document.querySelector("#main-footer");
 
-  renderWithTemplate(header, headerEle, "", setCartSup, userSearch);
+  renderWithTemplate(header, headerEle, "", setCartSup, createSearchList);
   renderWithTemplate(footer, footerEle);
 }
 

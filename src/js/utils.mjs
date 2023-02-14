@@ -72,17 +72,15 @@ function getDisplayData(itemCard){
   return itemCard.data;
 }
 
-export function renderWithTemplate(templateFn, parentElement, data, callback, callback2) {
+export function renderWithTemplate(templateFn, parentElement, data, ...callBacks) {
   parentElement.insertAdjacentHTML("afterbegin", templateFn);
-  if (callback) {
-    callback(data);
-  }
-
-  if (callback2) {
-    callback2(data);
-  }
-
   
+  if (callBacks) {
+    for (let i in callBacks) {
+    callBacks[i](data);
+    }
+  }
+
 }
 
 async function loadTemplate(path) {

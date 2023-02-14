@@ -1,5 +1,5 @@
 import { renderListWithTemplate, buildPrice } from "./utils.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+
 
 
 function productCardTemplate(product) {

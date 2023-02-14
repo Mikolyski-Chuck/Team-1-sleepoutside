@@ -391,5 +391,14 @@ footer {
 }
 
 .product-card img {
+
+  width: 100%;
+}
+
+#product-comments {
+  list-style-image: url("/images/user-image.png");
+}
+
+.comment-box-display {
   width: 100%;
 }

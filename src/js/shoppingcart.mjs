@@ -1,8 +1,9 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
 import setCartSup from "./cartsuperscript";
-import cartAnimation from "./cartAnimation.js";
 import ProductData from "./ProductData.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 const tentSource = new ProductData("tents");
+const productDet = new ProductDetails();
 
 function getCartItemsFromStorage(key) {
     let dist = [];
@@ -82,11 +83,6 @@ function getCartItemsFromStorage(key) {
     return newItem;
   }
   
-  
-
-  
-  
-
   export default class shoppingCart {
     constructor(key, listElement) {
       this.key = key;
@@ -105,7 +101,7 @@ function getCartItemsFromStorage(key) {
     
     async  addQuantHandler(e) {
       const product = await tentSource.findProductById(e.target.dataset.id);
-      this.addProductToCart(product);
+      this.addQuant(product);
     }
 
     removeItemFromCart(id) {
@@ -131,69 +127,34 @@ function getCartItemsFromStorage(key) {
         setCartSup();
       }
 
-     addProductToCart(product) {
-        const cartItems = [getLocalStorage(this.key)];
-        let objArr = new Array;
-        let newCart = new Array;
-          
-        // Parse current cart items if any and add to objArr
-        if (cartItems[0] != null) {
-          let items = cartItems[0].flat(10);
-          objArr = items.map((x) => JSON.parse(x));
-        }
-          
-        // Deal with possible null entry
-        if (objArr[0] == null) {
-          objArr.shift();
-        }
-          
-        // Add old items if any and add new item
-        if (objArr.length > 0) {
-          for (let x in objArr) {
-            newCart.push(JSON.stringify(objArr[x]));
-          }
-          
-          newCart.push(JSON.stringify(product));
-          }
-          // If no old items set new item as first item
-          else {
-            newCart = [JSON.stringify(product)];
-          }
-            
-        // Set item in the local storage
-        setLocalStorage(this.key, newCart);
-            
-        //start Chuck Mikolyski
-        setCartSup();
-        this.renderCartContents();
-        cartAnimation();
-        //End Chuck Mikolyski
-        }
+     addQuant(product) {
+      productDet.addProductToCart(product)
+      this.renderCartContents();
+     }
 
-
-      removeQuantFromCart(id) {
-        // Get Items from local storage
-        let dist = [getLocalStorage(this.key)];
-      
-        // Loop through items and remove items
-        // that match passed id
-        for (let i = 0; i < dist[0].length; i++) {
-          let arrEle = JSON.parse(dist[0][i]);
-      
-          // Check if array element matches
-          //If matches remove element.
-          if (arrEle.Id == id) {
-            dist[0].splice(i, 1);
-            i--;
-            break;
-          }
+     removeQuantFromCart(id) {
+      // Get Items from local storage
+      let dist = [getLocalStorage(this.key)];
+    
+      // Loop through items and remove items
+      // that match passed id
+      for (let i = 0; i < dist[0].length; i++) {
+        let arrEle = JSON.parse(dist[0][i]);
+    
+        // Check if array element matches
+        //If matches remove element.
+        if (arrEle.Id == id) {
+          dist[0].splice(i, 1);
+          i--;
+          break;
         }
-      
-        // Update local storage and reload cart
-        setLocalStorage(this.key, dist[0]);
-        this.renderCartContents();
-        setCartSup();
       }
+    
+      // Update local storage and reload cart
+      setLocalStorage(this.key, dist[0]);
+      this.renderCartContents();
+      setCartSup();
+    }
       
       renderCartContents() {
         // Get Items
@@ -233,6 +194,4 @@ function getCartItemsFromStorage(key) {
           addOne[i].addEventListener("click", this.addQuantHandler.bind(this));
         }
       }
-
-      
 }

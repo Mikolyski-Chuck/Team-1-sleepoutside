@@ -36,7 +36,6 @@ export default async function breadCrumbs() {
     //display the breacrumbs category with capital letter.
     breadCrumbsHtml = stringCat.charAt(0).toUpperCase() + stringCat.slice(1);
   }
-
   // Insert the breadcrumbs HTML into the breadcrumbs element
   document.querySelector(".breadcrumbs").innerHTML = breadCrumbsHtml;
 }

@@ -391,7 +391,6 @@ footer {
 }
 
 .product-card img {
-
   width: 100%;
 }
 
@@ -401,4 +400,11 @@ footer {
 
 .comment-box-display {
   width: 100%;
+}
+
+#discountflag {
+  background-color: green;
+  color: white;
+  padding: 0.5ch;
+  padding-left: 3ch;
 }

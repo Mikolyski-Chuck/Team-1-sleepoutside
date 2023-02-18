@@ -409,6 +409,13 @@ footer {
   width: 100%;
 }
 
+#discountflag {
+  background-color: green;
+  color: white;
+  padding: 0.5ch;
+  padding-left: 3ch;
+}
+
 /* begin checkout form */
 fieldset {
   border: 1px solid #000;

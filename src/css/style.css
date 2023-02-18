@@ -359,11 +359,18 @@ footer {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
-  margin: auto;
   display: block;
   border: 0;
   font-size: var(--small-font);
   cursor: pointer;
+  text-align: center;
+  position: relative;
+  left: 2%;
+  padding: 0.3em 0.5em;
+  margin: 0;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  width: 35px;
 }
 .remove-item:hover {
   color: crimson;
@@ -407,4 +414,9 @@ footer {
   color: white;
   padding: 0.5ch;
   padding-left: 3ch;
+}
+
+/* begin checkout form */
+fieldset {
+  border: 1px solid #000;
 }

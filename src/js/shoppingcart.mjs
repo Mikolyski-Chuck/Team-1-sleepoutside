@@ -1,8 +1,8 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
 import setCartSup from "./cartsuperscript";
 import cartAnimation from "./cartAnimation.js";
-import ProductData from "./ProductData.mjs";
-const tentSource = new ProductData("tents");
+import ExternalServices from "./ExternalServices.mjs";
+const tentSource = new ExternalServices("tents");
 
 function getCartItemsFromStorage(key) {
     let dist = [];

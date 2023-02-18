@@ -19,6 +19,12 @@ function createPage(item) {
   let color = item["Colors"];
   let brand = item["Brand"].Name;
   let pricedata = buildPrice(item);
+  let discount = 0;
+
+  if (item["SuggestedRetailPrice"] >= item["FinalPrice"]) {
+    discount = (item["SuggestedRetailPrice"] - item["FinalPrice"]).toFixed(2);
+    document.getElementById('discountflag').innerHTML = `$${discount} off!`
+  }
 
   const htmlItem = `
     <h3>${brand}</h3>

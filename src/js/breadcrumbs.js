@@ -1,11 +1,11 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import { getItemFromUrl } from "./utils.mjs";
 
 export default async function breadCrumbs() {
   // Get the current page URL
   const currentUrlCat = getItemFromUrl("category");
   const currentUrlId = getItemFromUrl("id");
-  const data = new ProductData();
+  const data = new ExternalServices();
   const prodCat = await data.getData(currentUrlCat);
   let prodCatQuant = 0;
 
@@ -24,7 +24,9 @@ export default async function breadCrumbs() {
       currentUrlCat.charAt(0).toUpperCase() +
       currentUrlCat.slice(1) +
       " -> " +
-      prodCatQuant;
+      "(" +
+      prodCatQuant +
+      ")";
   }
 
   //if the current window location is a specific product listting...
@@ -34,7 +36,10 @@ export default async function breadCrumbs() {
     //get the item category
     let stringCat = currentCat.Category;
     //display the breacrumbs category with capital letter.
-    breadCrumbsHtml = stringCat.charAt(0).toUpperCase() + stringCat.slice(1);
+    breadCrumbsHtml =
+      `<a href='/product-listing/index.html?category=${stringCat}'>` +
+      stringCat.charAt(0).toUpperCase() +
+      stringCat.slice(1);
   }
   // Insert the breadcrumbs HTML into the breadcrumbs element
   document.querySelector(".breadcrumbs").innerHTML = breadCrumbsHtml;

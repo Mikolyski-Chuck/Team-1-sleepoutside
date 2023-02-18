@@ -1,7 +1,7 @@
 //Use this one for production deploy.
-const baseURL =  'https://wdd330-backend.onrender.com/' 
+//const baseURL =  'https://wdd330-backend.onrender.com/' 
 //Use this one for local development.
-//const baseURL = 'http://server-nodejs.cit.byui.edu:3000/'
+const baseURL = 'http://server-nodejs.cit.byui.edu:3000/'
 
 
 function convertToJson(res) {
@@ -30,5 +30,16 @@ export default class ProductData {
     const product = this.getData;
     
     return product;
+  }
+  
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }

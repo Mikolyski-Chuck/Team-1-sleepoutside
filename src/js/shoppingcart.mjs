@@ -215,7 +215,7 @@ function getCartItemsFromStorage(key) {
         // Hide no items in cart
         let carttotal = ``;
         if (dist.length > 0) {
-          carttotal = `<p class="cart-total">Total: $${total}</p>`;
+          carttotal = `<p class="cart-total">Total: $${total}</p> <button onclick="window.location.href='../checkout/index.html';">checkout</button> `;
         } else {
           carttotal = `<p class="cart-total" hidden>Total: $${total}</p>`;
         }

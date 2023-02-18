@@ -391,7 +391,6 @@ footer {
 }
 
 .product-card img {
-
   width: 100%;
 }
 
@@ -401,4 +400,9 @@ footer {
 
 .comment-box-display {
   width: 100%;
+}
+
+/* begin checkout form */
+fieldset {
+  border: 1px solid #000;
 }

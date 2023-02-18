@@ -1,8 +1,8 @@
 import { getLocalStorage, setLocalStorage} from "./utils.mjs";
 import setCartSup from "./cartsuperscript";
 import cartAnimation from "./cartAnimation.js";
-import ProductData from "./ProductData.mjs";
-const tentSource = new ProductData("tents");
+import ExternalServices from "./ExternalServices.mjs";
+const tentSource = new ExternalServices("tents");
 
 function getCartItemsFromStorage(key) {
     let dist = [];
@@ -215,7 +215,7 @@ function getCartItemsFromStorage(key) {
         // Hide no items in cart
         let carttotal = ``;
         if (dist.length > 0) {
-          carttotal = `<p class="cart-total">Total: $${total}</p>`;
+          carttotal = `<p class="cart-total">Total: $${total}</p> <button onclick="window.location.href='../checkout/index.html';">checkout</button> `;
         } else {
           carttotal = `<p class="cart-total" hidden>Total: $${total}</p>`;
         }

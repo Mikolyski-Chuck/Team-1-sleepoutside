@@ -1,8 +1,8 @@
 import { getLocalStorage, setLocalStorage, getItemFromUrl, buildPrice} from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import setCartSup from "./cartsuperscript.js";
 import cartAnimation from "./cartAnimation.js";
-const dataSource = new ProductData("tents");
+const dataSource = new ExternalServices("tents");
 
 function convertToJson(res) {
   if (res.ok) {

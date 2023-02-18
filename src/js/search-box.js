@@ -1,9 +1,9 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 const prodCat = ["tents", "backpacks", "sleeping-bags", "hammocks"];
 
 export default async function createSearchList() {
   //create the product data class instance
-  const prodData = new ProductData();
+  const prodData = new ExternalServices();
 
   //handle API data retrieval errors.
   try {

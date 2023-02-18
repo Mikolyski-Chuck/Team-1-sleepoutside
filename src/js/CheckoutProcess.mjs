@@ -1,5 +1,6 @@
 
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getSubtotal } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
 function formDataToJSON(formElement) {
@@ -41,7 +42,7 @@ export default class CheckoutProcess {
       this.calculateItemSummary();
     }
     calculateItemSummary() {
-      // calculate and display the total amount of the items in the cart, and the number of items.
+      
       const summaryElement = document.querySelector(
         this.outputSelector + " #cartTotal"
       );
@@ -50,10 +51,13 @@ export default class CheckoutProcess {
       );
       itemNumElement.innerText = this.list.length;
       // calculate the total of all the items in the cart
-      const amounts = this.list.map((item) => item.FinalPrice);
-      this.itemTotal = amounts.reduce((sum, item) => sum + item);
+      const amounts = this.list.FinalPrice;
+      //this.itemTotal = amounts.reduce((sum, item) => sum + item);
+      this.itemTotal = getSubtotal(this.key);
       summaryElement.innerText = "$" + this.itemTotal;
+
     }
+    
     calculateOrdertotal() {
       // calculate the shipping and tax amounts. Then use them to along with the cart total to figure out the order total
       this.shipping = 10 + (this.list.length - 1) * 2;
@@ -64,10 +68,6 @@ export default class CheckoutProcess {
         parseFloat(this.tax)
         ).toFixed(2);
         this.displayOrderTotals();
-
-
-      // display the totals.
-      this.displayOrderTotals();
     }
     displayOrderTotals() {
       // once the totals are all calculated display them in the order summary page
@@ -76,6 +76,7 @@ export default class CheckoutProcess {
     const orderTotal = document.querySelector(
       this.outputSelector + " #orderTotal"
     );
+    //document.getElementById("shipping").innerHTML = "$" + this.shipping;
     shipping.innerText = "$" + this.shipping;
     tax.innerText = "$" + this.tax;
     orderTotal.innerText = "$" + this.orderTotal;

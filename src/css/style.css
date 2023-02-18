@@ -391,7 +391,6 @@ footer {
 }
 
 .product-card img {
-
   width: 100%;
 }
 
@@ -404,6 +403,6 @@ footer {
 }
 
 /* begin checkout form */
-fieldset{
+fieldset {
   border: 1px solid #000;
 }

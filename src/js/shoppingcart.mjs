@@ -3,7 +3,8 @@ import setCartSup from "./cartsuperscript";
 import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 const tentSource = new ExternalServices("tents");
-
+const productDet = new ProductDetails();
+  
   function cartItemTemplate(item) {
     // Separate needed values for testing
     let obj = JSON.parse(item);

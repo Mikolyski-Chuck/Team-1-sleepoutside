@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductListing from "./ProductList.mjs";
 import { getItemFromUrl, loadHeaderFooter } from "./utils.mjs";
 
@@ -9,11 +9,11 @@ export function initList() {
   var productListDisplay = document.getElementById("product-list");
   productListDisplay.innerHTML = "";
   const category = getItemFromUrl("category");
-  const newProductData = new ProductData();
+  const newExternalServices = new ExternalServices();
   const listingElement = document.querySelector(".product-list");
   const newProductList = new ProductListing(
     category,
-    newProductData,
+    newExternalServices,
     listingElement
   );
   newProductList.init();

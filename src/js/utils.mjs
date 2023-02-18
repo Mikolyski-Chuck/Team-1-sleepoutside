@@ -111,3 +111,59 @@ export function buildPrice(item){
     return buildPrice
   }
 }
+
+export function getSubtotal(key){
+  // Get Items
+  let dist = getCartItemsFromStorage(key);
+
+  // Convert all object back to string
+  const all = dist.map((x) => JSON.stringify(x));
+
+  let total = 0;
+
+  for (let x in all) {
+    let item = JSON.parse(all[x]);
+    total += Number(item["FinalPrice"]) * Number(item["qty"]);
+  }
+  total = parseFloat(total).toFixed(2);
+  return total;
+}
+
+export function getCartItemsFromStorage(key) {
+  let dist = [];
+  const cartItems = [getLocalStorage(key)];
+  let items = cartItems[0];
+
+  items = items.flat(10);
+  const objArr = items.map((x) => JSON.parse(x));
+
+  // Loop through items to mark duplicates as additional value in qty
+  for (let i in objArr) {
+    // Qty count
+    let count = 0;
+    // Look for duplicate items in array
+    for (let x in objArr) {
+      if (objArr[i]["Name"] == objArr[x]["Name"]) {
+        let qty = objArr[i]["qty"];
+        if (qty == 0 || qty == null) qty = 1;
+        count += qty;
+      }
+    }
+
+    // Check if copy of item is already in dist array
+    let first = true;
+    for (let x in dist) {
+      if (dist[x]["Id"] == objArr[i]["Id"]) {
+        first = false;
+      }
+    }
+
+    // If copy is not already in array add it with count qty element
+    if (first) {
+      let item = objArr[i];
+      item["qty"] = count;
+      dist.push(item);
+    }
+  }
+  return dist;
+}

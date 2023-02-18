@@ -430,3 +430,8 @@ footer {
 .comment-box-display {
   width: 100%;
 }
+
+/* begin checkout form */
+fieldset {
+  border: 1px solid #000;
+}

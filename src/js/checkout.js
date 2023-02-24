@@ -11,6 +11,7 @@ document
 // listening for click on the button
 document.querySelector("#form-sub").addEventListener("click", (e) => {
   e.preventDefault();
-
+  var myForm = document.forms[0];
+  myForm.reportValidity();
   checkout.checkout();
 });

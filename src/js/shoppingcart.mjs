@@ -1,9 +1,10 @@
 import { getLocalStorage, setLocalStorage, getCartItemsFromStorage, getSubtotal} from "./utils.mjs";
 import setCartSup from "./cartsuperscript";
-import cartAnimation from "./cartAnimation.js";
 import ExternalServices from "./ExternalServices.mjs";
+import ProductDetails from "./ProductDetails.mjs";
 const tentSource = new ExternalServices("tents");
-
+const productDet = new ProductDetails();
+  
   function cartItemTemplate(item) {
     // Separate needed values for testing
     let obj = JSON.parse(item);
@@ -60,7 +61,7 @@ const tentSource = new ExternalServices("tents");
     
     async  addQuantHandler(e) {
       const product = await tentSource.findProductById(e.target.dataset.id);
-      this.addProductToCart(product);
+      this.addQuant(product);
     }
 
     removeItemFromCart(id) {
@@ -86,44 +87,10 @@ const tentSource = new ExternalServices("tents");
         setCartSup();
       }
 
-     addProductToCart(product) {
-        const cartItems = [getLocalStorage(this.key)];
-        let objArr = new Array;
-        let newCart = new Array;
-          
-        // Parse current cart items if any and add to objArr
-        if (cartItems[0] != null) {
-          let items = cartItems[0].flat(10);
-          objArr = items.map((x) => JSON.parse(x));
-        }
-          
-        // Deal with possible null entry
-        if (objArr[0] == null) {
-          objArr.shift();
-        }
-          
-        // Add old items if any and add new item
-        if (objArr.length > 0) {
-          for (let x in objArr) {
-            newCart.push(JSON.stringify(objArr[x]));
-          }
-          
-          newCart.push(JSON.stringify(product));
-          }
-          // If no old items set new item as first item
-          else {
-            newCart = [JSON.stringify(product)];
-          }
-            
-        // Set item in the local storage
-        setLocalStorage(this.key, newCart);
-            
-        //start Chuck Mikolyski
-        setCartSup();
-        this.renderCartContents();
-        cartAnimation();
-        //End Chuck Mikolyski
-        }
+     addQuant(product) {
+      productDet.addProductToCart(product)
+      this.renderCartContents();
+     }
 
 
       removeQuantFromCart(id) {

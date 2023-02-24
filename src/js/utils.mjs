@@ -1,3 +1,4 @@
+import breadCrumbs from "./breadcrumbs";
 import setCartSup from "./cartsuperscript";
 import createSearchList from "./search-box";
 
@@ -80,7 +81,6 @@ export function renderWithTemplate(templateFn, parentElement, data, ...callBacks
     callBacks[i](data);
     }
   }
-
 }
 
 async function loadTemplate(path) {
@@ -95,7 +95,7 @@ export async function loadHeaderFooter(){
   const headerEle = document.querySelector("#main-header");
   const footerEle = document.querySelector("#main-footer");
 
-  renderWithTemplate(header, headerEle, "", setCartSup, createSearchList);
+  renderWithTemplate(header, headerEle, "", setCartSup, createSearchList, breadCrumbs);
   renderWithTemplate(footer, footerEle);
 }
 

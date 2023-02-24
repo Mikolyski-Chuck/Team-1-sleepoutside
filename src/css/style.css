@@ -422,6 +422,32 @@ fieldset {
   border: 1px solid #000;
 }
 
+#ourForm input:invalid {
+  border: 2px solid red;
+}
+
+#ourForm input:valid {
+  border: 2px solid green;
+}
+
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
+}
+
+.alert span {
+  border: 2px solid black;
+  padding: 2px;
+}
+
 /* end checkout form */
 
 /* begin quick product look up */

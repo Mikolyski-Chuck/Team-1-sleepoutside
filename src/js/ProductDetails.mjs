@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, getItemFromUrl, buildPrice} from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getItemFromUrl, buildPrice, alertMessage} from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import setCartSup from "./cartsuperscript.js";
 import cartAnimation from "./cartAnimation.js";
@@ -117,6 +117,7 @@ export default class ProductDetails {
   async addToCartHandler(e) {
     const product = await dataSource.findProductById(e.target.dataset.id);
     await this.addProductToCart(product);
+    alertMessage("Item added to cart!", false);
   }
   
   async postComment(e) {

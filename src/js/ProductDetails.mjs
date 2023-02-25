@@ -199,8 +199,6 @@ export default class ProductDetails {
   }
   
   renderColorList(item){
-    //Remove this line before turning it in
-    console.log(item["Colors"]);
     var colors = item["Colors"];
     var colorlist = ``;
     var color;

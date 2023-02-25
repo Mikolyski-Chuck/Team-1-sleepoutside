@@ -9,7 +9,7 @@ const productDet = new ProductDetails();
     // Separate needed values for testing
     let obj = JSON.parse(item);
     let name = obj["Name"];
-    let img = obj["Images"]["PrimaryLarge"];
+    let img = obj["Images"];
     let color = obj["Colors"];
     let price = obj["FinalPrice"];
     let qty = obj["qty"];
@@ -28,12 +28,12 @@ const productDet = new ProductDetails();
       <a href="../product_pages/index.html?id=${obj["Id"]}">
         <h2 class="card__name">${name}</h2>
       </a>
-      <p class="cart-card__color">${color[0].ColorName}</p>
+      <p class="cart-card__color">${color}</p>
       <div>
-      <button class = "add-one" data-id="${obj["Id"]}"> + </button>
+      <button class = "add-one" data-id="${obj["Id"]}" data-color="${obj["Colors"]}" data-image="${obj["Images"]}"> + </button>
       <p class="cart-card__quantity">Qty: ${qty}</p>
-      <button class = "sub-one" data-id="${obj["Id"]}"> - </button>
-      <button class="remove-item" data-id="${obj["Id"]}">X</button>
+      <button class = "sub-one" data-id="${obj["Id"]}" data-color="${obj["Colors"]}"> - </button>
+      <button class="remove-item" data-id="${obj["Id"]}" data-color="${obj["Colors"]}">X</button>
       </div>
       <p class="cart-card__price">$${finalPrice}</p>
     </div>
@@ -51,20 +51,24 @@ const productDet = new ProductDetails();
     
      removeItemHandler(e) {
       let id = e.target.dataset.id;
-      this.removeItemFromCart(id);
+      let color = e.target.dataset.color;
+      this.removeItemFromCart(id, color);
     }
   
      removeQuantHandler(e) {
       let id = e.target.dataset.id;
-      this.removeQuantFromCart(id);
+      let color = e.target.dataset.color;
+      this.removeQuantFromCart(id, color);
     }
     
-    async  addQuantHandler(e) {
+    async addQuantHandler(e) {
       const product = await tentSource.findProductById(e.target.dataset.id);
-      this.addQuant(product);
+      let image = e.target.dataset.image;
+      let color = e.target.dataset.color;
+      this.addQuant(product, image, color);
     }
 
-    removeItemFromCart(id) {
+    removeItemFromCart(id, color) {
         // Get Items from local storage
         let dist = [getLocalStorage(this.key)];
       
@@ -75,7 +79,7 @@ const productDet = new ProductDetails();
       
           // Check if array element matches
           //If matches remove element.
-          if (arrEle.Id == id) {
+          if ((arrEle.Id == id) && (arrEle.Colors == color)) {
             dist[0].splice(i, 1);
             i--;
           }
@@ -87,13 +91,13 @@ const productDet = new ProductDetails();
         setCartSup();
       }
 
-     addQuant(product) {
-      productDet.addProductToCart(product)
+     addQuant(product, image, color) {
+      productDet.addProductToCart(product, image, color)
       this.renderCartContents();
      }
 
 
-      removeQuantFromCart(id) {
+      removeQuantFromCart(id, color) {
         // Get Items from local storage
         let dist = [getLocalStorage(this.key)];
       
@@ -104,7 +108,7 @@ const productDet = new ProductDetails();
       
           // Check if array element matches
           //If matches remove element.
-          if (arrEle.Id == id) {
+          if ((arrEle.Id == id) && (arrEle.Colors == color)) {
             dist[0].splice(i, 1);
             i--;
             break;

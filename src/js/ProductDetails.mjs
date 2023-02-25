@@ -4,6 +4,8 @@ import setCartSup from "./cartsuperscript.js";
 import cartAnimation from "./cartAnimation.js";
 const dataSource = new ExternalServices("tents");
 
+var productcolorimg;
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -17,13 +19,14 @@ function createPage(item) {
     return "";
   }
   let color = item["Colors"];
+  productcolorimg = item["Colors"][0].ColorPreviewImageSrc
   let brand = item["Brand"].Name;
   let pricedata = buildPrice(item);
   let discount = 0;
 
   if (item["SuggestedRetailPrice"] >= item["FinalPrice"]) {
     discount = (item["SuggestedRetailPrice"] - item["FinalPrice"]).toFixed(2);
-    document.getElementById('discountflag').innerHTML = `$${discount} off!`
+    document.getElementById('discountflag').innerHTML = `$${discount} off!`;
   }
 
   const htmlItem = `
@@ -31,11 +34,14 @@ function createPage(item) {
 
     <h2 class="divider">${item["Name"]}</h2>
 
-    <img class="divider" src="${item["Images"].PrimaryLarge}" alt="${item["Name"]}" />
+    <div id=productimagediv>
+    <img class="divider" id=productimage src="${productcolorimg}" alt="${item["Name"]}" />
+    </div>
+    <div id="colorlist"></div>
 
             ${pricedata}
 
-            <p class="product__color">${color[0].ColorName}</p>
+            <p class="product__color" id="productcolorname">${color[0].ColorName}</p>
 
             <p class="product__description">
               ${item["DescriptionHtmlSimple"]}
@@ -79,6 +85,7 @@ export default class ProductDetails {
     //document.querySelector("#product-display").innerHTML = htmlText;
     document.getElementById("addToCart").addEventListener("click", this.addToCartHandler.bind(this));
     document.getElementById("post-comment").addEventListener("click", this.postComment.bind(this));
+    this.renderColorList(this.product);
   }
 
   renderProductComments(selector){
@@ -115,8 +122,10 @@ export default class ProductDetails {
 
   // add to cart button event handler
   async addToCartHandler(e) {
-    const product = await dataSource.findProductById(e.target.dataset.id);
-    await this.addProductToCart(product);
+    var product = await dataSource.findProductById(e.target.dataset.id);
+    let color = document.getElementById("productcolorname").innerText;
+    let image = productcolorimg;
+    await this.addProductToCart(product, image, color);
     alertMessage("Item added to cart!", false);
   }
   
@@ -130,7 +139,10 @@ export default class ProductDetails {
     //document.getElementById("user-comments").value = "";
   }
 
-  async addProductToCart(product) {
+  async addProductToCart(product, image, color) {
+
+    product["Images"] = image;
+    product["Colors"] = color;
   
     // Parse current cart items if any and add to objArr
     const cartItems = [getLocalStorage("so-cart")];
@@ -186,4 +198,23 @@ export default class ProductDetails {
     setLocalStorage(key, stringContent);
   }
   
+  renderColorList(item){
+    //Remove this line before turning it in
+    console.log(item["Colors"]);
+    var colors = item["Colors"];
+    var colorlist = ``;
+    var color;
+    for (let i = 0; i < colors.length; i++){
+      color = `<img id ="itemcolor${i}" src = "${colors[i].ColorChipImageSrc}"/>`;
+      colorlist = colorlist + color;
+    }
+    document.getElementById("colorlist").innerHTML = colorlist;
+    for (let i = 0; i < colors.length; i++){
+      document.getElementById(`itemcolor${i}`).addEventListener("click", function(){
+        document.getElementById("productimagediv").innerHTML = `<img class="divider" id=productimage src="${colors[i].ColorPreviewImageSrc}" alt="${item["Name"]}" />`;
+        document.getElementById("productcolorname").innerText = `${colors[i].ColorName}`;
+        productcolorimg = colors[i].ColorPreviewImageSrc;
+      });
+    }
+  }
 }

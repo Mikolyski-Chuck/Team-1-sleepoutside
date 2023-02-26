@@ -143,7 +143,7 @@ export function getCartItemsFromStorage(key) {
     let count = 0;
     // Look for duplicate items in array
     for (let x in objArr) {
-      if (objArr[i]["Name"] == objArr[x]["Name"]) {
+      if ((objArr[i]["Name"] == objArr[x]["Name"]) && (objArr[i]["Colors"] == objArr[x]["Colors"])) {
         let qty = objArr[i]["qty"];
         if (qty == 0 || qty == null) qty = 1;
         count += qty;
@@ -153,7 +153,7 @@ export function getCartItemsFromStorage(key) {
     // Check if copy of item is already in dist array
     let first = true;
     for (let x in dist) {
-      if (dist[x]["Id"] == objArr[i]["Id"]) {
+      if ((dist[x]["Id"] == objArr[i]["Id"]) && (dist[x]["Colors"] == objArr[i]["Colors"])) {
         first = false;
       }
     }

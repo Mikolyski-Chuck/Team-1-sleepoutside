@@ -3,7 +3,7 @@ import { alertMessage, getLocalStorage, getSubtotal, setLocalStorage } from "./u
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
-function formDataToJSON(formElement) {
+export function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
     convertedJSON = {};
 
@@ -94,7 +94,7 @@ export default class CheckoutProcess {
         json.items = packageItems(this.list);
         console.log(json);
         try {
-          const res = await services.checkout(json);
+          const res = await services.postPayLoad(json, "checkout/");
           console.log(res);
           window.location.href = "../checkout/success.html";
           setLocalStorage("so-cart", []);

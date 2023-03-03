@@ -9,6 +9,11 @@
       import { initList } from "../js/product-listing.js";
       window.initList = initList;
     </script>
+    <script type="module">
+      import { quickLook, closeWin } from "../js/quick-look.mjs";
+      window.quickLook = quickLook;
+      window.closeWin = closeWin;
+    </script>
   </head>
   <body>
     <header class="divider" id="main-header"></header>
@@ -22,6 +27,7 @@
         </select>
         <ul class="product-list" id="product-list"></ul>
       </section>
+      <div id="quick-look"></div>
     </main>
     <footer id="main-footer"></footer>
   </body>

@@ -379,6 +379,7 @@ img.divider {
     margin-right: auto;
   }
 }
+
 /*End Chuck Mikolyski*/
 footer {
   font-size: var(--small-font);
@@ -476,6 +477,52 @@ fieldset {
   padding: 2px;
 }
 
+/* end checkout form */
+
+/* begin quick product look up */
+#quick-look {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  text-decoration: none;
+  z-index: 999;
+  width: 50%;
+  max-height: fit-content;
+  height: auto;
+  background-color: white;
+  border: 2px solid black;
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+#quick-look * {
+  margin: 0;
+  padding-left: 0.2em;
+}
+
+#quick-look img {
+  max-width: 50%;
+  max-height: 50%;
+}
+
+#quick-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#close {
+  background-color: red;
+  text-align: center;
+  width: 7%;
+  height: 7%;
+  padding: 0;
+}
+
+@media screen and (max-width: 700px) {
+  #quick-look-btn {
+    display: none;
+  }
+
 #orders tr:nth-child(even) {
   border: 5px solid black;
   background-color: var(--light-grey);
@@ -487,4 +534,5 @@ fieldset {
 
 #orders th {
   border-bottom: 2px solid #000;
+
 }

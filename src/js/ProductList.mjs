@@ -12,6 +12,7 @@ function productCardTemplate(product) {
     <h3 class="card__brand">${product.Brand.Name}</h3>
     <h2 class="card__name">${product.Name}</h2>
     <p class="product-card__price">${buildPrice(product)}</p></a>
+    <button type="button" id="quick-look-btn" onclick=quickLook("${product.Id}")>Quick Lookup</button>
   </li>`, Name:product.Name, ListPrice:product.ListPrice}
 }             
 

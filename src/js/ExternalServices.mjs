@@ -74,4 +74,33 @@ export default class ExternalServices {
     return response;
   }
 
+  async createCustomer(customer) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(customer),
+    };
+    const response = await fetch(baseURL + "users", options).then(
+      convertToJson
+    );
+    return response;
+  }
+
+  async loginCustomer(token) {
+    const options = {
+      method: "GET",
+      // the server will reject our request if we don't include the Authorization header with a valid token!
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(baseURL + "users", options).then(
+      convertToJson
+    );
+    return response;
+  }
+
+
 }

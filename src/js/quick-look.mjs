@@ -28,15 +28,11 @@ export async function quickLook(prodId){
 
             <p>
               ${quickProd["DescriptionHtmlSimple"]}
-            </p>
-            
+            </p>     
     `;
-
-      
-
+    
     displayWin.innerHTML = htmlItem;
     displayWin.style.display = "block";
-
 }
 
 export function closeWin() {
